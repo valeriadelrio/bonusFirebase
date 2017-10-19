@@ -1,5 +1,5 @@
+import { FileItem } from './../models/file-item';
 import { Directive, EventEmitter, ElementRef, HostListener, Input, Output } from '@angular/core';
-import { FileItem } from '../models/file-item';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -39,6 +39,7 @@ export class NgDropFilesDirective {
       return;
     }
     this._agregarArchivos(transferencia.files);
+    this.archivoSobre.emit(false);
     this._prevenirYdetener(event);
   }
 
@@ -47,7 +48,17 @@ export class NgDropFilesDirective {
   }
 
   private _agregarArchivos(archivosLista: FileList) {
-
+    // tslint:disable-next-line:prefer-const
+    // tslint:disable-next-line:forin
+    for (const propiedad in Object.getOwnPropertyNames(archivosLista )) {
+      // tslint:disable-next-line:prefer-const
+      let archTemporal = archivosLista[propiedad];
+      if (this._archivoPuedeSerCargado(archTemporal)) {
+        // tslint:disable-next-line:prefer-const
+        let nuevoArchivo = new FileItem(archTemporal);
+        this.archivos.push(nuevoArchivo);
+      }
+    }
   }
 
   private _prevenirYdetener(event: any) {
@@ -56,7 +67,7 @@ export class NgDropFilesDirective {
   }
 
   private _archivoPuedeSerCargado(archivo: File) {
-    if (this._archivoYaFueDroppeado(archivo.name) && (this._esImagen(archivo.type))) {
+    if (!this._archivoYaFueDroppeado(archivo.name) && (this._esImagen(archivo.type))) {
       return true;
     }
     return false;
