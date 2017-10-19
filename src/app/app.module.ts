@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 
 import { AppComponent } from './app.component';
 import { CargaComponent } from './components/carga/carga.component';
@@ -26,7 +27,8 @@ import { CargaImagenesService } from './services/carga-imagenes.service';
     FormsModule,
     HttpModule,
     APP_ROUTING,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
   providers: [
     CargaImagenesService

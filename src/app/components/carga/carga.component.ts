@@ -1,3 +1,5 @@
+import { CargaImagenesService } from './../../services/carga-imagenes.service';
+import { FileItem } from './../../models/file-item';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,11 +7,22 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './carga.component.html',
   styles: []
 })
-export class CargaComponent implements OnInit {
+export class CargaComponent {
 
-  constructor() { }
+  estaSobreDropZone = false;
+  permiteCargar = true;
+  archivos: FileItem[]= [];
 
-  ngOnInit() {
+  constructor(public _cargarImagenes: CargaImagenesService) { }
+
+  cargarImagenesFirebase() {
+    this.permiteCargar = false;
+    this._cargarImagenes.cargar_imagenes_firebase(this.archivos);
+  }
+
+  limpiarArchivos() {
+    this.archivos = [];
+    this.permiteCargar = true;
   }
 
 }
