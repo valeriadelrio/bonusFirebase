@@ -16,11 +16,15 @@ import { firebaseConfig } from './config/firebase.config';
 // Services
 import { CargaImagenesService } from './services/carga-imagenes.service';
 
+// Directivas
+import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
     CargaComponent,
-    FotosComponent
+    FotosComponent,
+    NgDropFilesDirective
   ],
   imports: [
     BrowserModule,
