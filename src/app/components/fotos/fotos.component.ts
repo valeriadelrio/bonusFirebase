@@ -1,4 +1,6 @@
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Component, OnInit } from '@angular/core';
+import { CargaImagenesService } from '../../services/carga-imagenes.service';
 
 @Component({
   selector: 'app-fotos',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FotosComponent implements OnInit {
 
-  constructor() { }
+  imagenes: FirebaseListObservable<any[]>;
+
+  constructor(public _cis: CargaImagenesService) {
+    this.imagenes = this._cis.listaUltimasImagenes(10);
+   }
 
   ngOnInit() {
   }
